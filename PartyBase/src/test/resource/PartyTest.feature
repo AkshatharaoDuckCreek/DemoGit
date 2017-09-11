@@ -1,0 +1,149 @@
+Feature: Party smoke for the application
+
+  Scenario Outline: Add new person or place
+    Given The application is launched is with "<username>" and "<password>"
+    When I click on Party button
+    And I click on Add new Person Or Place
+    And I select organization
+    And I enter the  partyname "<organizationName>" and "<correspondenceName>"
+    And I enter the address "<Address>" and "<City>" and "<zipcode>"
+    And I click on Done
+    Then Verify the "<organizationName>" created
+
+    Examples: 
+      | username | password | organizationName | correspondenceName | Address     | City    | zipcode |
+      | admin    | admin    | AmericanOrg        | AmericanOrg          | 100 Main Rd | Bolivar |   65613 |
+
+  Scenario Outline: Search the added Business Party
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    When I click on the Search for Person or Place
+    And I enter details in Search for Person or Place"<organizationName>" and "<State>"
+    Then click Select "<organizationName>"
+    And Verify the "<organizationName>" created
+
+    Examples: 
+      | username | password | organizationName | State |
+      | admin    | admin    | AmericanOrg        | MO    |
+
+  Scenario Outline: Update Address of Business Party
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    And I click on the Search for Person or Place
+    And I enter details in Search for Person or Place"<organizationName>" and "<State>"
+    And click Select "<organizationName>"
+    And Verify the "<organizationName>" created
+    When The user update the address of the party
+    Then The address of the party should be updated successfully
+
+    Examples: 
+      | username | password | organizationName | State |
+      | admin    | admin    | AmericanOrg        | MO    |
+
+  Scenario Outline: Update Demographies of Business Party
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    And I click on the Search for Person or Place
+    And I enter details in Search for Person or Place"<organizationName>" and "<State>"
+    And click Select "<organizationName>"
+    And Verify the "<organizationName>" created
+    When The user update the demographics of the party
+    Then The demographics of the party should be updated successfully "<PreferredLand>" "<bustype>""<typeofbusiness>""<fedtaxid>"
+
+    Examples: 
+      | username | password | organizationName | State | PreferredLand | bustype     | typeofbusiness | fedtaxid  |
+      | admin    | admin    | AmericanOrg        | MO    | English       | Association | Attorney       | 123456789 |
+
+  Scenario Outline: Update other names of Business Party
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    And I click on the Search for Person or Place
+    And I enter details in Search for Person or Place"<organizationName>" and "<State>"
+    And click Select "<organizationName>"
+    And Verify the "<organizationName>" created
+    When The user update the "<othername>" and "<typeofname>" of the party
+    Then The othername of the party should be updated successfully "<othername>" "<typeofname>"
+
+    Examples: 
+      | username | password | organizationName | State | PreferredLand | othername   | typeofname |
+      | admin    | admin    | AmericanOrg        | MO    | English       | testinsured | Alias      |
+
+  Scenario Outline: Update the License
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    And I click on the Search for Person or Place
+    And I enter details in Search for Person or Place"<organizationName>" and "<State>"
+    And click Select "<organizationName>"
+    And Verify the "<organizationName>" created
+    When the username update the license "<LicenseType>" "<LicenseNumber>"of the party
+    Then the license must get updated sucessfully "<LicenseType>" "<LicenseNumber>"
+
+    Examples: 
+      | username | password | organizationName | State | PreferredLand | LicenseType | LicenseNumber |
+      | admin    | admin    | AmericanOrg        | MO    | English       | Business    |        123456 |
+
+  Scenario Outline: Update the Membership
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    And I click on the Search for Person or Place
+    And I enter details in Search for Person or Place"<organizationName>" and "<State>"
+    And click Select "<organizationName>"
+    And Verify the "<organizationName>" created
+    When the username update the membership "<MembershipType>" "<MembershipID>"of the party
+    Then the membership must get updated sucessfully "<MembershipType>" "<MembershipID>"
+
+    Examples: 
+      | username | password | organizationName | State | PreferredLand | MembershipType | MembershipID |
+      | admin    | admin    | AmericanOrg        | MO    | English       | Club Id        |       123456 |
+
+  Scenario Outline: Update Phone
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    And I click on the Search for Person or Place
+    And I enter details in Search for Person or Place"<organizationName>" and "<State>"
+    And click Select "<organizationName>"
+    And Verify the "<organizationName>" created
+    When update the phonenumber "<phonenumber>" for the party
+    Then the phonenumber "<phonenumber>" must get updated successfully
+
+    Examples: 
+      | username | password | organizationName | State | PreferredLand | phonenumber  |
+      | admin    | admin    | AmericanOrg        | MO    | English       | 123-456-7896 |
+
+  Scenario Outline: Update email
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    And I click on the Search for Person or Place
+    And I enter details in Search for Person or Place"<organizationName>" and "<State>"
+    And click Select "<organizationName>"
+    And Verify the "<organizationName>" created
+    When update the email "<email>" for the party
+    Then the email "<email>" must get updated successfully
+
+    Examples: 
+      | username | password | organizationName | State | PreferredLand | email          |
+      | admin    | admin    | AmericanOrg        | MO    | English       | test12@fks.com |
+
+  Scenario Outline: Update location
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    And I click on the Search for Person or Place
+    And I enter details in Search for Person or Place"<organizationName>" and "<State>"
+    And click Select "<organizationName>"
+    And Verify the "<organizationName>" created
+    When update the Address "<Address>" city "<city>"state"<State>"zipcode "<zipcode>" for the party
+    Then the Address "<Address>" must get updated successfully
+
+    Examples: 
+      | username | password | organizationName | State | Address     | city    | zipcode |
+      | admin    | admin    | AmericanOrg        | MO    | 100 Main Rd | Bolivar |   65613 |
+
+  Scenario Outline: click the recently created party through Last accessed
+    Given The application is launched is with "<username>" and "<password>"
+    And I click on Party button
+    When I select the recently created organization "<organization>"
+    Then I verify the organization "<organization>" created
+
+    Examples: 
+      | username | password | organization |
+      | admin    | admin    | AmericanOrg    |
